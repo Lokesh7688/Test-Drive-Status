@@ -27,3 +27,24 @@ def RetrieveSinglecustomer(id):
     if customer:
         return render_template('data.html', customer=customer)
     return f"customer with id ={id} Doenst exist"
+
+
+@app.route('/data/<int:id>/update',methods = ['GET','POST'])
+def update(id):
+    customer = CustomerModel.query.filter_by(customer_id=id).first()
+    if request.method == 'POST':
+        if customer:
+            db.session.delete(customer)
+            db.session.commit()
+ 
+            name = request.form['name']
+            age = request.form['age']
+            status = request.form['status']
+            customer = CustomerModel(customer_id=id, name=name, age=age, status = status)
+ 
+            db.session.add(customer)
+            db.session.commit()
+            return redirect(f'/data/{id}')
+        return f"customer with id = {id} Does nit exist"
+ 
+    return render_template('update.html', customer = customer)
