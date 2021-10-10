@@ -1,100 +1,114 @@
 <html>
-    <head>
-        <title>
-Customer List
-        </title>
-    </head>
-    <style>
-        @import "compass/css3";
 
-*, *:before, *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
+<head>
+  <title>
+    Customer List
+  </title>
+</head>
+<style>
+  @import "compass/css3";
 
-body {
-  font-family: 'Nunito', sans-serif;
-  color: #384047;
-}
+  *,
+  *:before,
+  *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 
-table {
-  max-width: 960px;
-  margin: 10px auto;
-}
+  body {
+    font-family: 'Nunito', sans-serif;
+    color: #384047;
+  }
 
-caption {
-  font-size: 1.6em;
-  font-weight: 400;
-  padding: 10px 0;
-}
+  table {
+    max-width: 960px;
+    margin: 10px auto;
+  }
 
-thead th {
-  font-weight: 400;
-  background: #8a97a0;
-  color: #FFF;
-}
+  caption {
+    font-size: 1.6em;
+    font-weight: 400;
+    padding: 10px 0;
+  }
 
-tr {
-  background: #f4f7f8;
-  border-bottom: 1px solid #FFF;
-  margin-bottom: 5px;
-}
+  thead th {
+    font-weight: 400;
+    background: #8a97a0;
+    color: #FFF;
+  }
 
-tr:nth-child(even) {
-  background: #e8eeef;
-}
+  tr {
+    background: #f4f7f8;
+    border-bottom: 1px solid #FFF;
+    margin-bottom: 5px;
+  }
 
-th, td {
-  text-align: left;
-  padding: 20px;
-  font-weight: 300;
-}
+  tr:nth-child(even) {
+    background: #e8eeef;
+  }
 
-tfoot tr {
-  background: none;
-}
+  th,
+  td {
+    text-align: left;
+    padding: 20px;
+    font-weight: 300;
+  }
 
-tfoot td {
-  padding: 10px 2px;
-  font-size: 0.8em;
-  font-style: italic;
-  color: #8a97a0;
-}
-[th="running"] {
+  tfoot tr {
+    background: none;
+  }
+
+  tfoot td {
+    padding: 10px 2px;
+    font-size: 0.8em;
+    font-style: italic;
+    color: #8a97a0;
+  }
+
+  [th="running"] {
     color: green;
-}
-[th="waiting"] {
-    color: red;
-}
+  }
 
-        </style>
-    <body style="background-color: rgb(22, 21, 21);">
-        <table style="justify-content: center;">
-            <caption style="color: white;">Customer Status</caption>
-            <thead>
-              <tr>
-               <th scope="col">Customer Id</th>
-               <th scope="col">Name</th>
-               <th scope="col">Age</th>
-               <th scope="col">Status</th>
-             </tr>
-           </thead>
-            <tbody>
-               {% for customer in customers %}
-             <tr>
-               <th scope="row">{{customer.customer_id}}</th>
-               <td>{{customer.name}}</td>
-               <td>{{customer.age}}</td>
-               {% if customer.status == "running" %}
-               <td style="color: green;">{{customer.status}}</td>
-               {% else %}
-               <td style="color: red;">{{customer.status}}</td>
-               {% endif %}
-             </tr>
-             {% endfor %}
-           </tbody>
-         </table>
-    </body>
+  [th="waiting"] {
+    color: red;
+  }
+</style>
+
+<body style="background-color: rgb(22, 21, 21);">
+  <table style="justify-content: center;">
+    <caption style="color: white;">Customer Status</caption>
+    <thead>
+      <tr>
+        <th scope="col">Customer Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Age</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for customer in customers %}
+      <tr>
+        <th scope="row">{{customer.customer_id}}</th>
+        <td>{{customer.name}}</td>
+        <td>{{customer.age}}</td>
+        {% if (customer.status == "Running") or (customer.status == "running") %}
+        <td style="color: green;">
+          <b>{{customer.status}}</b></td>
+            {% else %}
+        <td style="color: red;">{{customer.status}}</td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+<script>
+var $input = $('.form-fieldset > input');
+
+  $input.blur(function (e) {
+    $(this).toggleClass('filled', !!$(this).val());
+  });
+  </script>
 
 </html>

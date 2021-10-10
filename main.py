@@ -54,7 +54,7 @@ def update(id):
             customer = CustomerModel(customer_id=id, name=name, age=age, status = status)
             db.session.add(customer)
             db.session.commit()
-            return redirect(f'/{id}')
+            return redirect('/')
         return f"customer with id = {id} Does nit exist"
  
     return render_template('update.html', customer = customer)
@@ -72,4 +72,4 @@ def delete(id):
  
     return render_template('delete.html')
  
-app.run(host='localhost', port=5000)
+app.run(host='localhost', port=5000, debug=True)
