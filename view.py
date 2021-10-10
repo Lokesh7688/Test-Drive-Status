@@ -8,8 +8,22 @@ def create():
         name = request.form['name']
         age = request.form['age']
         status = request.form['status']
-        customer = customerModel(
+        customer = CustomerModel(
             customer_id=customer_id, name=name, age=age, status=status)
         db.session.add(customer)
         db.session.commit()
         return redirect('/data')
+
+
+@app.route('/data')
+def RetrieveDataList():
+    customer = CustomerModel.query.all()
+    return render_template('datalist.html', customer=customer)
+
+
+@app.route('/data/<int:id>')
+def RetrieveSinglecustomer(id):
+    customer = CustomerModel.query.filter_by(customer_id=id).first()
+    if customer:
+        return render_template('data.html', customer=customer)
+    return f"customer with id ={id} Doenst exist"
